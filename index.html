@@ -170,21 +170,30 @@ footer{background:#073f42;color:#d8eeea;padding:27px 7%;text-align:center;line-h
   <p>Tecnologia e informação a serviço da prevenção.</p>
   <p>Projeto de conscientização em saúde pública.</p>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+const SUPABASE_URL = https://zqwgqaoddvtnltumotvm.supabase.co/rest/v1/;
+const SUPABASE_KEY = sb_publishable_yGVIe-S-KoW4tMDEzSuoMg_gAnRJ-NE;
+
+const banco = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
 const foto = document.getElementById("foto");
 const preview = document.getElementById("preview");
 
-foto.addEventListener("change", function(){
+foto.addEventListener("change", function() {
   const arquivo = this.files[0];
-  if(!arquivo) return;
+  if (!arquivo) return;
 
-  if(!arquivo.type.startsWith("image/")){
-    alert("Selecione um arquivo de imagem.");
+  if (!arquivo.type.startsWith("image/")) {
+    alert("Selecione uma imagem.");
     return;
   }
 
-  if(arquivo.size > 5 * 1024 * 1024){
+  if (arquivo.size > 5 * 1024 * 1024) {
     alert("A imagem deve ter no máximo 5 MB.");
     this.value = "";
     return;
@@ -194,28 +203,31 @@ foto.addEventListener("change", function(){
   preview.style.display = "block";
 });
 
-document.getElementById("formulario").addEventListener("submit", function(e){
+document.getElementById("formulario").addEventListener("submit", async function(e) {
   e.preventDefault();
 
+  const resultado = document.getElementById("resultado");
+  resultado.textContent = "Enviando registro...";
+
   const ocorrencia = {
-    local: document.getElementById("local").value.trim(),
+    bairro: document.getElementById("local").value.trim(),
     tipo: document.getElementById("tipo").value,
-    descricao: document.getElementById("descricao").value.trim(),
-    data: new Date().toLocaleString("pt-BR")
+    descricao: document.getElementById("descricao").value.trim()
   };
 
   try {
-    const registros = JSON.parse(localStorage.getItem("bioalerta") || "[]");
-    registros.push(ocorrencia);
-    localStorage.setItem("bioalerta", JSON.stringify(registros));
+    const { error } = await banco
+      .from("possiveis_focos")
+      .insert([ocorrencia]);
 
-    document.getElementById("resultado").textContent =
-      "Registro salvo neste navegador com sucesso!";
+    if (error) throw error;
 
+    resultado.textContent = "Registro enviado com sucesso!";
     this.reset();
-  } catch(error) {
-    document.getElementById("resultado").textContent =
-      "Não foi possível salvar. Verifique o armazenamento do navegador.";
+  } catch (error) {
+    console.error(error);
+    resultado.textContent =
+      "Não foi possível enviar. Tente novamente mais tarde.";
   }
 });
 </script>
