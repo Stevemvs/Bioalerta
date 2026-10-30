@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#063f40">
+<title>BioAlerta | Saúde e prevenção</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f3f7f8;color:#17333c}
+header{background:#073f42;color:white;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:bold;color:#35d99b}
+nav{display:flex;gap:17px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-size:14px}
+.hero{padding:65px 7%;background:linear-gradient(110deg,#063b40,#087c65);color:white;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.hero h1{font-size:clamp(30px,6vw,48px);max-width:550px;margin-bottom:15px}
+.hero p{line-height:1.7;max-width:500px;color:#e1f6ed}
+.hero .mosquito{font-size:100px}
+.btn{display:inline-block;border:0;background:#13bd78;color:white;padding:13px 22px;border-radius:25px;text-decoration:none;font-weight:bold;cursor:pointer;margin-top:20px}
+section{padding:48px 7%}
+h2{font-size:27px;margin-bottom:13px;color:#07534e}
+.intro{color:#62777c;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:17px;margin-top:25px}
+.card{background:white;padding:23px;border-radius:15px;box-shadow:0 3px 14px #163b4010}
+.card .icon{font-size:34px;margin-bottom:13px}
+.card h3{margin-bottom:10px;color:#08745c}
+.card p{color:#64777b;line-height:1.6;font-size:14px}
+.panel{background:white;padding:23px;border-radius:15px;margin-top:22px;box-shadow:0 3px 14px #163b4010}
+label{display:block;font-weight:bold;margin:15px 0 7px}
+input,textarea{width:100%;padding:13px;border:1px solid #ccd9d9;border-radius:8px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+button{font:inherit}
+.preview{max-width:100%;max-height:260px;display:none;margin-top:15px;border-radius:10px}
+.notice{background:#e6f5ed;border-left:4px solid #16a36c;padding:14px;margin-top:15px;border-radius:5px;font-size:13px;line-height:1.5}
+#resultado{margin-top:15px;color:#08745c;font-weight:bold}
+footer{background:#073f42;color:#d8eeea;padding:27px 7%;text-align:center;line-height:1.7}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🛡 BioAlerta</div>
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#imagem">Imagens</a>
+    <a href="#denunciar">Denunciar</a>
+    <a href="#dicas">Dicas</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="hero" id="inicio">
+  <div>
+    <h1>Juntos contra o Aedes aegypti</h1>
+    <p>Informação, tecnologia e participação da comunidade na prevenção contra a dengue, zika e chikungunya.</p>
+    <a class="btn" href="#imagem">Conheça a plataforma</a>
+  </div>
+  <div class="mosquito">🦟</div>
+</div>
+
+<section id="sobre">
+  <h2>Conheça o BioAlerta</h2>
+  <p class="intro">Uma iniciativa digital que busca facilitar o acesso à informação e incentivar a participação da população no combate ao mosquito Aedes aegypti.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="icon">📷</div>
+      <h3>Imagens</h3>
+      <p>Envie imagens para registro e análise futura com inteligência artificial.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📍</div>
+      <h3>Mapa de alertas</h3>
+      <p>Futuramente, acompanhe ocorrências registradas e verificadas na comunidade.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🛡️</div>
+      <h3>Prevenção</h3>
+      <p>Aprenda maneiras de evitar a proliferação do mosquito.</p>
+    </div>
+    <div class="card">
+      <div class="icon">👥</div>
+      <h3>Comunidade</h3>
+      <p>Participe das ações de conscientização e proteção coletiva.</p>
+    </div>
+  </div>
+</section>
+
+<section id="imagem">
+  <h2>Envio de imagens</h2>
+  <p class="intro">Selecione uma imagem para visualizar e preparar um registro.</p>
+
+  <div class="panel">
+    <label for="foto">Escolha uma imagem:</label>
+    <input type="file" id="foto" accept="image/*">
+    <img id="preview" class="preview" alt="Pré-visualização da imagem">
+
+    <div class="notice">
+      Esta versão permite visualizar a imagem, mas ainda não possui identificação automática por IA.
+      Não utilize o resultado como confirmação da espécie.
+    </div>
+  </div>
+</section>
+
+<section id="denunciar">
+  <h2>Registrar possível foco</h2>
+  <p class="intro">Registre informações sobre um possível foco para acompanhamento.</p>
+
+  <div class="panel">
+    <form id="formulario">
+      <label for="local">Bairro ou comunidade:</label>
+      <input id="local" required maxlength="70" placeholder="Ex.: Centro">
+
+      <label for="tipo">Tipo de possível ocorrência:</label>
+      <select id="tipo" required>
+        <option value="">Selecione</option>
+        <option>Água parada</option>
+        <option>Recipiente exposto</option>
+        <option>Possíveis larvas</option>
+        <option>Outro</option>
+      </select>
+
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" required maxlength="400" placeholder="Descreva a situação sem informar dados pessoais..."></textarea>
+
+      <button class="btn" type="submit">Registrar ocorrência</button>
+    </form>
+    <div id="resultado" role="status"></div>
+    <div class="notice">Este registro fica somente neste navegador. Ainda não é enviado às autoridades nem compartilhado com outros usuários. Não informe endereços residenciais ou dados pessoais.</div>
+  </div>
+</section>
+
+<section id="dicas">
+  <h2>Dicas de prevenção</h2>
+  <p class="intro">Pequenas atitudes ajudam a proteger toda a comunidade.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🪣</div>
+      <h3>Evite água parada</h3>
+      <p>Elimine recipientes que possam acumular água.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🚰</div>
+      <h3>Cuide das caixas d'água</h3>
+      <p>Mantenha os reservatórios bem tampados.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🧹</div>
+      <h3>Limpe o ambiente</h3>
+      <p>Mantenha quintais e áreas externas limpos.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🏥</div>
+      <h3>Procure orientação</h3>
+      <p>Em caso de sintomas, procure um serviço de saúde.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>BioAlerta</strong>
+  <p>Tecnologia e informação a serviço da prevenção.</p>
+  <p>Projeto de conscientização em saúde pública.</p>
+</footer>
+
+<script>
+const foto = document.getElementById("foto");
+const preview = document.getElementById("preview");
+
+foto.addEventListener("change", function(){
+  const arquivo = this.files[0];
+  if(!arquivo) return;
+
+  if(!arquivo.type.startsWith("image/")){
+    alert("Selecione um arquivo de imagem.");
+    return;
+  }
+
+  if(arquivo.size > 5 * 1024 * 1024){
+    alert("A imagem deve ter no máximo 5 MB.");
+    this.value = "";
+    return;
+  }
+
+  preview.src = URL.createObjectURL(arquivo);
+  preview.style.display = "block";
+});
+
+document.getElementById("formulario").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const ocorrencia = {
+    local: document.getElementById("local").value.trim(),
+    tipo: document.getElementById("tipo").value,
+    descricao: document.getElementById("descricao").value.trim(),
+    data: new Date().toLocaleString("pt-BR")
+  };
+
+  try {
+    const registros = JSON.parse(localStorage.getItem("bioalerta") || "[]");
+    registros.push(ocorrencia);
+    localStorage.setItem("bioalerta", JSON.stringify(registros));
+
+    document.getElementById("resultado").textContent =
+      "Registro salvo neste navegador com sucesso!";
+
+    this.reset();
+  } catch(error) {
+    document.getElementById("resultado").textContent =
+      "Não foi possível salvar. Verifique o armazenamento do navegador.";
+  }
+});
+</script>
+
+</body>
+</html>
